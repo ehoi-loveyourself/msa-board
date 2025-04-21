@@ -1,13 +1,11 @@
-package com.taeyi.msaboard;
+package com.taeyi.hotarticle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsaBoardApplication {
-
+public class HotArticleApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MsaBoardApplication.class, args);
+        SpringApplication.run(HotArticleApplication.class, args);
     }
-
 }
