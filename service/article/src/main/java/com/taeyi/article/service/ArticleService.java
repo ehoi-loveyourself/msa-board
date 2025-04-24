@@ -24,4 +24,10 @@ public class ArticleService {
 
         return ArticleResponse.from(article);
     }
+
+    public ArticleResponse read(Long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow();
+
+        return ArticleResponse.from(article);
+    }
 }
