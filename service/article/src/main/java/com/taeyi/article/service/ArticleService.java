@@ -3,6 +3,7 @@ package com.taeyi.article.service;
 import com.taeyi.article.entity.Article;
 import com.taeyi.article.repository.ArticleRepository;
 import com.taeyi.article.service.request.ArticleCreateRequest;
+import com.taeyi.article.service.request.ArticleUpdateRequest;
 import com.taeyi.article.service.response.ArticleResponse;
 import kuke.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,14 @@ public class ArticleService {
 
     public ArticleResponse read(Long articleId) {
         Article article = articleRepository.findById(articleId).orElseThrow();
+
+        return ArticleResponse.from(article);
+    }
+
+    @Transactional
+    public ArticleResponse update(Long articleId, ArticleUpdateRequest request) {
+        Article article = articleRepository.findById(articleId).orElseThrow();
+        article.update(request.getTitle(), request.getContent());
 
         return ArticleResponse.from(article);
     }
