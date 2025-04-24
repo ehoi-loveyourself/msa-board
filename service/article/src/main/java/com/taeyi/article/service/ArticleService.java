@@ -39,4 +39,9 @@ public class ArticleService {
 
         return ArticleResponse.from(article);
     }
+
+    @Transactional
+    public void delete(Long articleId) {
+        articleRepository.deleteById(articleId);
+    }
 }
