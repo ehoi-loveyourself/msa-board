@@ -27,7 +27,7 @@ public class DataInitializer {
     CountDownLatch latch = new CountDownLatch(EXECUTE_CNT);
 
     static final int BULK_INSERT_SIZE = 2000;
-    static final int EXECUTE_CNT = 2000;
+    static final int EXECUTE_CNT = 6000;
 
     @Test
     void initialize() throws InterruptedException {
