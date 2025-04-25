@@ -10,7 +10,7 @@ spring:
     username: root
     password: root
   jpa:
-    database-platform: org.hibernate.dialect.MySqlDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     show-sql: true
     hibernate:
