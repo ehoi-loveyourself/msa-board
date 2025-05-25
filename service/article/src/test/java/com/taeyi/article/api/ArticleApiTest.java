@@ -1,5 +1,6 @@
 package com.taeyi.article.api;
 
+import com.taeyi.article.service.response.ArticlePageResponse;
 import com.taeyi.article.service.response.ArticleResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +40,19 @@ public class ArticleApiTest {
                 .uri("/v1/articles/{articleId}", articleId)
                 .retrieve()
                 .body(ArticleResponse.class);
+    }
+
+    @Test
+    void readAllTest() {
+        ArticlePageResponse response = restClient.get()
+                .uri("/v1/articles?boardId=1&page=50000&pageSize=30")
+                .retrieve()
+                .body(ArticlePageResponse.class);
+
+        System.out.println("response.getArticleCount() = " + response.getArticleCount());
+        for (ArticleResponse article : response.getArticles()) {
+            System.out.println("articleId = " + article.getArticleId());
+        }
     }
 
     @Test

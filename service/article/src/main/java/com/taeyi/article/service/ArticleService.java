@@ -4,6 +4,7 @@ import com.taeyi.article.entity.Article;
 import com.taeyi.article.repository.ArticleRepository;
 import com.taeyi.article.service.request.ArticleCreateRequest;
 import com.taeyi.article.service.request.ArticleUpdateRequest;
+import com.taeyi.article.service.response.ArticlePageResponse;
 import com.taeyi.article.service.response.ArticleResponse;
 import kuke.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,17 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId).orElseThrow();
 
         return ArticleResponse.from(article);
+    }
+
+    public ArticlePageResponse readAll(Long boardId, Long page, Long pageSize) {
+        return ArticlePageResponse.of(
+                articleRepository.findAll(boardId, (page - 1) * pageSize, pageSize).stream()
+                        .map(ArticleResponse::from)
+                        .toList(),
+                articleRepository.count(boardId,
+                        PageLimitCalculator.calculatePageLimit(page, pageSize, 10L)
+                )
+        );
     }
 
     @Transactional
