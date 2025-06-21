@@ -53,4 +53,36 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             @Param("boardId") Long boardId,
             @Param("limit") Long limit
     );
+
+    // 게시글 목록 API - 무한 스크롤 구현
+    @Query(
+            value = """
+                select article_id, title, content, board_id, writer_id, created_at, modified_at
+                from article
+                where board_id = :boardId
+                order by article_id desc
+                limit :limit
+                """,
+            nativeQuery = true
+    )
+    List<Article> readAllInfiniteScroll(
+            @Param("boardId") Long boardId,
+            @Param("limit") Long limit
+    );
+
+    @Query(
+            value = """
+                select article_id, title, content, board_id, writer_id, created_at, modified_at
+                from article
+                where board_id = :boardId and article_id < :lastArticleId
+                order by article_id desc
+                limit :limit
+                """,
+            nativeQuery = true
+    )
+    List<Article> readAllInfiniteScroll(
+            @Param("boardId") Long boardId,
+            @Param("limit") Long limit,
+            @Param("lastArticleId") Long lastArticleId
+    );
 }
